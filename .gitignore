@@ -1,3 +1,7 @@
 .vscode
 .DS_Store
-calculator_service.*pb.*"
+**calculator_service.*pb.*"
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake

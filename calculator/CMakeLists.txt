@@ -1,7 +1,13 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.27.6)
+cmake_policy(VERSION 3.27.6)
 project (calculator CXX)
 
+set (CMAKE_CXX_STANDARD 20)
+
 include(cmake/common.cmake)
+
+find_program(_PROTOBUF_PROTOC protoc)
+message("${_PROTOBUF_PROTOC}")
 
 get_filename_component(hw_proto "calculator_service.proto" ABSOLUTE)
 get_filename_component(hw_proto_path "${hw_proto}" PATH)
@@ -14,7 +20,7 @@ set(hw_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/calculator_service.grpc.pb.h")
 
 add_custom_command(
       OUTPUT "${hw_proto_srcs}" "${hw_proto_hdrs}" "${hw_grpc_srcs}" "${hw_grpc_hdrs}"
-      COMMAND ${_PROTOBUF_PROTOC}
+      COMMAND protoc
       ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}"
         --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
         -I "${hw_proto_path}"
